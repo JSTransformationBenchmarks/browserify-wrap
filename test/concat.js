@@ -1,30 +1,17 @@
 "use strict";
 
 const expect = require('expect.js');
-const path   = require('path');
-const wrap   = require('../');
 
+const path = require('path');
 
-describe("Concat test suite", function(){
+const wrap = require('../');
 
-  it("should merge two contents", function() {
-    var merged = wrap.concat([
-      path.join(__dirname, "data/left"),
-      path.join(__dirname, "data/right"),
-    ], "<=>");
-
+describe("Concat test suite", function () {
+  it("should merge two contents", async function () {
+    var merged = await wrap.concat([path.join(__dirname, "data/left"), path.join(__dirname, "data/right")], "<=>");
     expect(merged).to.eql(`this is left<=>this is right`);
+    var merged = await wrap.concat([path.join(__dirname, "data/left"), path.join(__dirname, "data/right")]); //default separator
 
-    var merged = wrap.concat([
-      path.join(__dirname, "data/left"),
-      path.join(__dirname, "data/right"),
-    ]);
-
-      //default separator
     expect(merged).to.eql(`this is leftthis is right`);
-
-
   });
-
 });
-
